@@ -85,12 +85,9 @@ func (elem elementC) clear() {
 func main() {
 
 	var med myMediator
-	var a elementA
-	a.m = &med
-	var b elementB
-	b.m = &med
-	var c elementC
-	c.m = &med
+	a := elementA{&med, ""}
+	b := elementB{&med, ""}
+	c := elementC{&med, ""}
 	med.a = &a
 	med.b = &b
 	med.c = &c
