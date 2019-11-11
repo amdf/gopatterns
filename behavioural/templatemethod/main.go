@@ -42,19 +42,19 @@ func (c cCompiler) link() {
 
 func main() {
 
-	var compc cCompiler
-	var compgo goCompiler
+	var clang cCompiler
+	var golang goCompiler
 
 	fmt.Println("C compiler:")
 
-	compc.preprocess()
-	compc.compile()
-	compc.link()
+	clang.preprocess()
+	clang.compile()
+	clang.link()
 
 	fmt.Println("Go compiler:")
 
-	compgo.preprocess()
-	compgo.compile()
-	compgo.link()
+	golang.preprocess()
+	golang.compile()
+	golang.link()
 
 }
