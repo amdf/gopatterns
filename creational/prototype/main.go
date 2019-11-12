@@ -51,44 +51,46 @@ func (ci *circle) construct(src circle) {
 func (rect rectangle) clone() prototype {
 	newRect := &rectangle{}
 	newRect.construct(rect)
-	return newRect
+	return *newRect
 }
 
 func (ci circle) clone() prototype {
 	newCircle := &circle{}
 	newCircle.construct(ci)
-	return newCircle
+	return *newCircle
+}
+
+func printContent(shapes []prototype) {
+	for _, s := range shapes {
+		switch x := s.(type) {
+		case rectangle:
+			fmt.Println("rectangle, height = ", x.height)
+		case circle:
+			fmt.Println("circle, radius = ", x.radius)
+		}
+	}
+}
+
+func copyContent(src []prototype) (dst []prototype) {
+	for _, s := range src {
+		dst = append(dst, s.clone())
+	}
+	return
 }
 
 func main() {
 
 	var shapes []prototype
-	var copyshapes []prototype
 
-	var newCircle circle
-	var newRectangle rectangle
+	newCircle := circle{radius: 1.33}
+	newRectangle := rectangle{height: 144}
 	shapes = append(shapes, newCircle)
 	shapes = append(shapes, newRectangle)
 
-	for _, s := range shapes {
-		copyshapes = append(copyshapes, s.clone())
-	}
-	fmt.Println("original: (length ", len(shapes), ")")
-	for _, s := range shapes {
-		switch x := s.(type) {
-		case rectangle:
-			fmt.Println("rectangle, height = ", x.height)
-		case circle:
-			fmt.Println("circle, radius = ", x.radius)
-		}
-	}
-	fmt.Println("copy: (length ", len(copyshapes), ")")
-	for _, s := range copyshapes {
-		switch x := s.(type) {
-		case rectangle:
-			fmt.Println("rectangle, height = ", x.height)
-		case circle:
-			fmt.Println("circle, radius = ", x.radius)
-		}
-	}
+	copyshapes := copyContent(shapes)
+
+	fmt.Println("original:")
+	printContent(shapes)
+	fmt.Println("copy:")
+	printContent(copyshapes)
 }
